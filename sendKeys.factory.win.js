@@ -45,9 +45,11 @@ const spawnPowershellScript = command => {
 }
 
 const sendKeysFactory = (script, spawn, argumentChecker) => keys => {
-  argumentChecker(keys, 'string')
-  const command = script(keys)
-  return spawn(command)
+  return Promise.resolve().then(() => {
+    argumentChecker(keys, 'string')
+    const command = script(keys)
+    return spawn(command)
+  })
 }
 
 module.exports = {
