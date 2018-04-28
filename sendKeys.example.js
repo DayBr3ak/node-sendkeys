@@ -3,5 +3,8 @@
 const sendKeys = require('./sendKeys')
 
 sendKeys('I took over your keyboard!').then(() => {
-  console.log('Hello world!')
+  console.log('sendKey over!')
 })
+
+sendKeys.sync('Mr Foo! ')
+console.log('sendKeySync over!')

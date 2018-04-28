@@ -1,5 +1,5 @@
 'use strict'
-const spawn = require('child_process').spawn
+const { spawn, spawnSync } = require('child_process')
 
 const csSource = `
   public static class StartUp {
@@ -44,17 +44,29 @@ const spawnPowershellScript = command => {
   })
 }
 
-const sendKeysFactory = (script, spawn, argumentChecker) => keys => {
-  return Promise.resolve().then(() => {
+const spawnPowershellScriptSync = command => {
+  const { stderr, status } = spawnSync('powershell', ['-command', command])
+  if (status !== 0) {
+    throw stderr
+  }
+}
+
+const sendKeysFactory = (isSync, script, spawn, argumentChecker) => {
+  const sendKeys = keys => {
     argumentChecker(keys, 'string')
     const command = script(keys)
     return spawn(command)
-  })
+  }
+  if (isSync) {
+    return sendKeys
+  }
+  return keys => Promise.resolve().then(() => sendKeys(keys))
 }
 
 module.exports = {
   sendKeysFactory,
   spawnPowershellScript,
+  spawnPowershellScriptSync,
   scriptFactory,
   argumentChecker,
   csSource

@@ -2,6 +2,7 @@
 
 const {
   spawnPowershellScript,
+  spawnPowershellScriptSync,
   scriptFactory,
   argumentChecker
 } = require('./sendKeys.factory.win')
@@ -16,6 +17,18 @@ describe('happy path', () => {
     const script = '[System.Console]::foo("bar")' // doesn't exists
     const proc = spawnPowershellScript(script)
     return expect(proc).rejects.toContain(script)
+  })
+
+  it('spawns a powershell script SYNC', () => {
+    const res = spawnPowershellScriptSync(
+      '[System.Console]::WriteLine("foobar")'
+    )
+    return expect(res).toBeUndefined()
+  })
+
+  it('spawns a powershell script and fails SYNC', () => {
+    const script = '[System.Console]::foo("bar")' // doesn't exists
+    expect(() => spawnPowershellScriptSync(script)).toThrow()
   })
 
   const csSource1 = `
