@@ -9,11 +9,17 @@ const csSource = `
   }
 `
 
-const script = keys => `
+const scriptFactory = csSource => keys => `
 $source=@"${csSource}\n"@;
 Add-Type -ReferencedAssemblies System.Windows.Forms -TypeDefinition $source;
 [StartUp]::Invoke("${keys}");
 `
+
+const argumentChecker = (arg, type) => {
+  if (typeof arg !== type) {
+    throw new Error('Argument must be of type ' + type)
+  }
+}
 
 const accum = stream => {
   const buffers = []
@@ -21,8 +27,7 @@ const accum = stream => {
   return () => Buffer.concat(buffers).toString()
 }
 
-const sendKeys = keys => {
-  const command = script(keys)
+const spawnPowershellScript = command => {
   const p = spawn('powershell', ['-command', command], {
     stdio: 'pipe'
   })
@@ -38,4 +43,16 @@ const sendKeys = keys => {
   })
 }
 
-module.exports = () => sendKeys
+const sendKeysFactory = (script, spawn, argumentChecker) => keys => {
+  argumentChecker(keys, 'string')
+  const command = script(keys)
+  return spawn(command)
+}
+
+module.exports = {
+  sendKeysFactory,
+  spawnPowershellScript,
+  scriptFactory,
+  argumentChecker,
+  csSource
+}

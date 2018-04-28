@@ -1,4 +1,17 @@
 'use strict'
+const {
+  sendKeysFactory,
+  spawnPowershellScript,
+  scriptFactory,
+  argumentChecker,
+  csSource
+} = require('./sendKeys.factory.win')
 
-const factory = require('./sendKeys.factory.win')
-module.exports.default = module.exports = factory()
+const sendKeys = sendKeysFactory(
+  scriptFactory(csSource),
+  spawnPowershellScript,
+  argumentChecker
+)
+sendKeys.default = sendKeys // ES6
+
+module.exports = sendKeys
