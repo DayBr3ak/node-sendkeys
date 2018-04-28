@@ -7,10 +7,6 @@ const {
 } = require('./sendKeys.factory.win')
 
 describe('happy path', () => {
-  it('is happy', () => {
-    expect(true).toBeTruthy()
-  })
-
   it('spawns a powershell script', () => {
     const proc = spawnPowershellScript('[System.Console]::WriteLine("foobar")')
     return expect(proc).resolves.toBeUndefined()
