@@ -1,14 +1,14 @@
 {
   "name": "sendkeys",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "(Windows) Emulate keyboard over nodejs",
   "main": "sendKeys.js",
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["keyboard", "keys", "emulation"],
+  "license": "MIT",
+  "repository": "daybr3ak/node-sendkeys",
   "devDependencies": {
     "jest": "^22.4.3"
   },
