@@ -1,7 +1,7 @@
 {
-  "name": "node-edge-ps",
+  "name": "sendkeys",
   "version": "1.0.0",
-  "description": "",
+  "description": "(Windows) Emulate keyboard over nodejs",
   "main": "index.js",
   "scripts": {
     "test": "jest"
