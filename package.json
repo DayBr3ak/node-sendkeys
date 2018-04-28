@@ -1,6 +1,6 @@
 {
   "name": "sendkeys",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "(Windows) Emulate keyboard over nodejs",
   "main": "sendKeys.js",
   "scripts": {
