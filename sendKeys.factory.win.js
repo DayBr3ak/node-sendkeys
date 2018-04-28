@@ -4,7 +4,8 @@ const spawn = require('child_process').spawn
 const csSource = `
   public static class StartUp {
     public static void Invoke(string keys) {
-      System.Windows.Forms.SendKeys.SendWait(keys);
+      System.Windows.Forms.Clipboard.SetDataObject(keys);
+      System.Windows.Forms.SendKeys.SendWait("^v");
     }
   }
 `
