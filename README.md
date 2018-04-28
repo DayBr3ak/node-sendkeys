@@ -20,4 +20,5 @@ import sendkeys from 'sendkeys'
 sendkeys('foobar')
   .then(() => console.log('success'))
 
+sendkeys.sync('this is synchronous')
 ```
