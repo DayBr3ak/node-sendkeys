@@ -1,19 +1,9 @@
 'use strict'
 const { spawn, spawnSync } = require('child_process')
 
-const csSource = `
-  public static class StartUp {
-    public static void Invoke(string keys) {
-      System.Windows.Forms.Clipboard.SetDataObject(keys);
-      System.Windows.Forms.SendKeys.SendWait("^v");
-    }
-  }
-`
-
-const scriptFactory = csSource => keys => `
-$source=@"${csSource}\n"@;
-Add-Type -ReferencedAssemblies System.Windows.Forms -TypeDefinition $source;
-[StartUp]::Invoke("${keys}");
+const scriptFactory = () => keys => `
+$wshell = New-Object -ComObject wscript.shell;
+$wshell.SendKeys("${keys}");
 `
 
 const argumentChecker = (arg, type) => {
@@ -68,6 +58,5 @@ module.exports = {
   spawnPowershellScript,
   spawnPowershellScriptSync,
   scriptFactory,
-  argumentChecker,
-  csSource
+  argumentChecker
 }

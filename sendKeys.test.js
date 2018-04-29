@@ -37,12 +37,6 @@ describe('happy path', () => {
         System.Console.WriteLine(str);
       }
     }`
-  it('makes a script', () => {
-    const script = scriptFactory(csSource1)
-    const command = script('foo')
-    expect(command).toContain(csSource1)
-  })
-
   it('makes a script and spawns and succeed', () => {
     const script = scriptFactory(csSource1)
     const command = script('foo')

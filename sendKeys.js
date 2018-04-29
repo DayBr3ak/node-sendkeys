@@ -4,11 +4,10 @@ const {
   spawnPowershellScript,
   spawnPowershellScriptSync,
   scriptFactory,
-  argumentChecker,
-  csSource
+  argumentChecker
 } = require('./sendKeys.factory.win')
 
-const script = scriptFactory(csSource)
+const script = scriptFactory()
 
 const sendKeys = sendKeysFactory(
   false,
